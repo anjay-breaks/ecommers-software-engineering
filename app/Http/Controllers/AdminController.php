@@ -9,6 +9,7 @@ use Illuminate\Filesystem\Filesystem;
 use Carbon\Carbon;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Category;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -151,5 +152,9 @@ class AdminController extends Controller
         $category->delete();
         return redirect()->route('admin.categories')->with('status','Category has been deleted successfully!');
 
+    }
+    public function products(){
+        $products = Product::orderBy('created_at','DESC')->paginate(10);
+        return view('admin.products',compact('products'));
     }
 }
