@@ -138,7 +138,7 @@ class CartController extends Controller
 
                 $order = new Order();
                  $order->user_id = $user_id;
-                 $order->sub_total = Session::get('checkout')['subtotal'];
+                 $order->subtotal = Session::get('checkout')['subtotal'];
                  $order->discount = Session::get('checkout')['discount'];
                  $order->tax = Session::get('checkout')['tax'];
                  $order->total = Session::get('checkout')['total'];
@@ -192,10 +192,10 @@ class CartController extends Controller
         }
         if(Session::has('coupon')){
             Session::put('checkout',[
-                'discount' => Session::get('discount')['discount'],
-                'subtotal' => Session::get('discount')['subtotal'],
-                'tax' => Session::get('discount')['tax'],
-                'total' => Session::get('discount')['total'],
+                'discount' => Session::get('discounts')['discount'],
+                'subtotal' => Session::get('discounts')['subtotal'],
+                'tax' => Session::get('discounts')['tax'],
+                'total' => Session::get('discounts')['total'],
             ]);
         }
         else{
@@ -216,4 +216,5 @@ class CartController extends Controller
         }
         return redirect()->route('cart.index');
     }
+    
 }
