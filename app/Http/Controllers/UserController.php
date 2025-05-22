@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,12 @@ class UserController extends Controller
             return redirect()->route('login');
         }
 
+    }
+    public function order_cancel(Request $request){
+        $order = Order::find($request->order_id);
+        $order->status = "canceled";
+        $order->canceled_date = Carbon::now();
+        $order->save();
+        return back()->with('status',"Mak eh cancel bangsat");
     }
 }
