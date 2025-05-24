@@ -240,7 +240,7 @@
                     <table class="table table-striped table-bordered table-transaction">
                         <tbody>
                             <tr>
-                                <th>Subtotal</th>
+                                <th>Subtotal</th>php
                                 <td>${{ $order->subtotal }}</td>
                                 <th>Tax</th>
                                 <td>${{ $order->tax }}</td>
