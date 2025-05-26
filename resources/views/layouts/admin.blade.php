@@ -38,7 +38,7 @@
 
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
+                        <a href="{{ route('home.index') }}" id="site-logo-inner">
                             <img class="" id="logo_header_1" alt="" src="{{ asset('images/logo/logo.png') }}"
                                 data-light="{{ asset('images/logo/logo.png') }}" data-dark="{{ asset('images/logo/logo.png') }}">
                         </a>
@@ -147,6 +147,13 @@
                                 </li>
 
                                 <li class="menu-item">
+                                    <a href="{{ route('admin.contacts') }}" class="">
+                                        <div class="icon"><i class="icon-mail"></i></div>
+                                        <div class="text">Message</div>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
                                     <a href="users.html" class="">
                                         <div class="icon"><i class="icon-user"></i></div>
                                         <div class="text">User</div>
@@ -177,7 +184,7 @@
                     <div class="header-dashboard">
                         <div class="wrap">
                             <div class="header-left">
-                                <a href="index-2.html">
+                                <a href="{{ route('home.index') }}">
                                     <img class="" id="logo_header_mobile" alt="" src="{{ asset('images/logo/logo.png') }}"
                                         data-light="{{ asset('images/logo/logo.png') }}" data-dark="{{ asset('images/logo/logo.png') }}"
                                         data-width="154px" data-height="52px" data-retina="{{ asset('images/logo/logo.png') }}">
@@ -473,104 +480,7 @@
     <script src="{{asset('js/sweetalert.min.js')}}"></script>
     <script src="{{asset('js/apexcharts/apexcharts.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
-    <script>
-        (function ($) {
 
-            var tfLineChart = (function () {
-
-                var chartBar = function () {
-
-                    var options = {
-                        series: [{
-                            name: 'Total',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Pending',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        },
-                        {
-                            name: 'Delivered',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Canceled',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }],
-                        chart: {
-                            type: 'bar',
-                            height: 325,
-                            toolbar: {
-                                show: false,
-                            },
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '10px',
-                                endingShape: 'rounded'
-                            },
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        legend: {
-                            show: false,
-                        },
-                        colors: ['#2377FC', '#FFA500', '#078407', '#FF0000'],
-                        stroke: {
-                            show: false,
-                        },
-                        xaxis: {
-                            labels: {
-                                style: {
-                                    colors: '#212529',
-                                },
-                            },
-                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        },
-                        yaxis: {
-                            show: false,
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return "$ " + val + ""
-                                }
-                            }
-                        }
-                    };
-
-                    chart = new ApexCharts(
-                        document.querySelector("#line-chart-8"),
-                        options
-                    );
-                    if ($("#line-chart-8").length > 0) {
-                        chart.render();
-                    }
-                };
-
-                /* Function ============ */
-                return {
-                    init: function () { },
-
-                    load: function () {
-                        chartBar();
-                    },
-                    resize: function () { },
-                };
-            })();
-
-            jQuery(document).ready(function () { });
-
-            jQuery(window).on("load", function () {
-                tfLineChart.load();
-            });
-
-            jQuery(window).on("resize", function () { });
-        })(jQuery);
-    </script>
     @stack("scripts")
 </body>
 </html>
