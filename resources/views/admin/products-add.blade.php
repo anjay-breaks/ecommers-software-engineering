@@ -69,7 +69,7 @@
                         <div class="select">
                             <select class="" name="brand_id">
                                 <option>Choose Brand</option>
-                                @foreach ($brands as $brand)     
+                                @foreach ($brands as $brand)
                                 <option value="{{$brand->id  }}">{{$brand->name}}</option>
                                 @endforeach
                             </select>
@@ -215,6 +215,7 @@
                 if(file){
                     $("#imgpreview img").attr('src',URL.createObjectURL(file));
                     $("#imgpreview img").show();
+                    $("#imgpreview").show();
                 }
 
             });

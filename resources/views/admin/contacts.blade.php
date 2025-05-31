@@ -6,7 +6,7 @@
                                     <h3>All Message</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="{{ route('admin.coupons') }}">
+                                            <a href="{{ route('admin.index') }}">
                                                 <div class="text-tiny">Dashboard</div>
                                             </a>
                                         </li>
@@ -32,7 +32,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="{{ route('admin.coupon.add') }}"><i class="icon-plus"></i>Add new</a>
+                                        {{-- <a class="tf-button style-1 w208" href="{{ route('admin.coupon.add') }}"><i class="icon-plus"></i>Add new</a> --}}
                                     </div>
                                     <div class="wg-table table-all-user">
                                         <div class="table-responsive">
