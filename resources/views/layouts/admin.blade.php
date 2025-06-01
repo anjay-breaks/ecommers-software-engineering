@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,21 +11,22 @@
     <title>{{ config('app.name', 'BMP e-commerce') }}</title>
 
     <title>Black Mamba Paganite</title>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="author" content="surfside media" />
-  <link rel="stylesheet" type="text/css" href="{{asset('css/animate.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/animation.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-select.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('font/fonts.css') }}">
-  <link rel="stylesheet" href="{{asset('icon/style.css')}}">
-  <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">
-  <link rel="apple-touch-icon-precomposed" href="{{asset('images/favicon.ico')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/custom.css')}}">
-    @stack("stayles")
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="surfside media" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/animation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('font/fonts.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+    @stack('stayles')
 </head>
+
 <body class="body">
     <div id="wrapper">
         <div id="page" class="">
@@ -39,8 +41,10 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="{{ route('home.index') }}" id="site-logo-inner">
-                            <img class="" id="logo_header_1" alt="" src="{{ asset('images/logo/logo.png') }}"
-                                data-light="{{ asset('images/logo/logo.png') }}" data-dark="{{ asset('images/logo/logo.png') }}">
+                            <img class="" id="logo_header_1" alt=""
+                                src="{{ asset('images/logo/logo.png') }}"
+                                data-light="{{ asset('images/logo/logo.png') }}"
+                                data-dark="{{ asset('images/logo/logo.png') }}">
                         </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
@@ -122,7 +126,7 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="{{ route('admin.orders')}}" class="">
+                                            <a href="{{ route('admin.orders') }}" class="">
                                                 <div class="text">Orders</div>
                                             </a>
                                         </li>
@@ -167,12 +171,13 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <form method="POST" action="{{route('logout')}}" id="logout-form">
+                                    <form method="POST" action="{{ route('logout') }}" id="logout-form">
                                         @csrf
-                                    <a href="{{route('logout')}}" class="" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                        <div class="icon"><i class="icon-settings"></i></div>
-                                        <div class="text">Logout</div>
-                                    </a>
+                                        <a href="{{ route('logout') }}" class=""
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            <div class="icon"><i class="icon-settings"></i></div>
+                                            <div class="text">Logout</div>
+                                        </a>
                                     </form>
                                 </li>
                             </ul>
@@ -185,9 +190,11 @@
                         <div class="wrap">
                             <div class="header-left">
                                 <a href="{{ route('home.index') }}">
-                                    <img class="" id="logo_header_mobile" alt="" src="{{ asset('images/logo/logo.png') }}"
-                                        data-light="{{ asset('images/logo/logo.png') }}" data-dark="{{ asset('images/logo/logo.png') }}"
-                                        data-width="154px" data-height="52px" data-retina="{{ asset('images/logo/logo.png') }}">
+                                    <img class="" id="logo_header_mobile" alt=""
+                                        src="{{ asset('images/logo/logo.png') }}"
+                                        data-light="{{ asset('images/logo/logo.png') }}"
+                                        data-dark="{{ asset('images/logo/logo.png') }}" data-width="154px"
+                                        data-height="52px" data-retina="{{ asset('images/logo/logo.png') }}">
                                 </a>
                                 <div class="button-show-hide">
                                     <i class="icon-menu-left"></i>
@@ -196,128 +203,15 @@
 
                                 <form class="form-search flex-grow">
                                     <fieldset class="name">
-                                        <input type="text" placeholder="Search here..." class="show-search" name="name"
-                                            tabindex="2" value="" aria-required="true" required="">
+                                        <input type="text" placeholder="Search here..." class="show-search"
+                                            name="name" id="search-input" tabindex="2" value=""
+                                            aria-required="true" required="" autocomplete="off">
                                     </fieldset>
                                     <div class="button-submit">
                                         <button class="" type="submit"><i class="icon-search"></i></button>
                                     </div>
-                                    <div class="box-content-search" id="box-content-search">
-                                        <ul class="mb-24">
-                                            <li class="mb-14">
-                                                <div class="body-title">Top selling product</div>
-                                            </li>
-                                            <li class="mb-14">
-                                                <div class="divider"></div>
-                                            </li>
-                                            <li>
-                                                <ul>
-                                                    <li class="product-item gap14 mb-10">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/17.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Dog Food
-                                                                    Rachael Ray Nutrish®</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mb-10">
-                                                        <div class="divider"></div>
-                                                    </li>
-                                                    <li class="product-item gap14 mb-10">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/18.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Natural
-                                                                    Dog Food Healthy Dog Food</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mb-10">
-                                                        <div class="divider"></div>
-                                                    </li>
-                                                    <li class="product-item gap14">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/19.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Freshpet
-                                                                    Healthy Dog Food and Cat</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul class="">
-                                            <li class="mb-14">
-                                                <div class="body-title">Order product</div>
-                                            </li>
-                                            <li class="mb-14">
-                                                <div class="divider"></div>
-                                            </li>
-                                            <li>
-                                                <ul>
-                                                    <li class="product-item gap14 mb-10">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/20.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Sojos
-                                                                    Crunchy Natural Grain Free...</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mb-10">
-                                                        <div class="divider"></div>
-                                                    </li>
-                                                    <li class="product-item gap14 mb-10">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/21.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Kristin
-                                                                    Watson</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mb-10">
-                                                        <div class="divider"></div>
-                                                    </li>
-                                                    <li class="product-item gap14 mb-10">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/22.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega
-                                                                    Pumpkin Bone</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mb-10">
-                                                        <div class="divider"></div>
-                                                    </li>
-                                                    <li class="product-item gap14">
-                                                        <div class="image no-bg">
-                                                            <img src="images/products/23.png" alt="">
-                                                        </div>
-                                                        <div class="flex items-center justify-between gap20 flex-grow">
-                                                            <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega
-                                                                    Pumpkin Bone</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                    <div class="box-content-search">
+                                        <ul id="box-content-search">
                                         </ul>
                                     </div>
                                 </form>
@@ -383,7 +277,8 @@
                                                     <div>
                                                         <div class="body-title-2">Order pending: <span>ID 305830</span>
                                                         </div>
-                                                        <div class="text-tiny">Ultricies at rhoncus at ullamcorper</div>
+                                                        <div class="text-tiny">Ultricies at rhoncus at ullamcorper
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -474,13 +369,60 @@
         </div>
     </div>
 
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
-    <script src="{{asset('js/sweetalert.min.js')}}"></script>
-    <script src="{{asset('js/apexcharts/apexcharts.js')}}"></script>
-    <script src="{{asset('js/main.js')}}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('js/apexcharts/apexcharts.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
-    @stack("scripts")
+    <script>
+        $(function() {
+            $("#search-input").on("keyup", function() {
+                var searchQuery = $(this).val();
+                if (searchQuery.lenght > 2) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('admin.search') }}",
+                        data: {
+                            query: searchQuery
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            $("#box-content-search").html('');
+                            $.each(data, function(index, item) {
+                                var url =
+                                    "{{ route('admin.product.edit', ['id' => 'product_id']) }}";
+                                var link = url.replace('product_id', item.id);
+
+                                $("#box-content-search").append(`
+                                <li>
+                                    <ul>
+                                        <li class="product-item gap14 mb-10">
+                                            <div class="image no-bg">
+                                                <img src="{{ asset('uploads/products/tumbnails') }}/${item.image}" alt="${item.name}">
+                                            </div>
+                                            <div class="flex items-center justify-between gap20 flex-grow">
+                                                <div class="name">
+                                                    <a href="${link}" class="body-text">${item.name}</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-10">
+                                            <div class="divider"></div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            `);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    @stack('scripts')
 </body>
+
 </html>

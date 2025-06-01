@@ -468,7 +468,9 @@
                             <form action="#" method="GET" class="search-field container">
                                 <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
                                 <div class="position-relative">
-                                    <input class="search-field__input search-popup__input w-100 fw-medium" type="text" name="search-keyword" id="search-input" placeholder="Search products" />
+                                    <input class="search-field__input search-popup__input w-100 fw-medium"
+                                        type="text" name="search-keyword" id="search-input"
+                                        placeholder="Search products" />
                                     <button class="btn-icon search-popup__submit" type="submit">
                                         <svg class="d-block" width="20" height="20" viewBox="0 0 20 20"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -480,6 +482,7 @@
 
                                 <div class="search-popup__results">
                                     <ul id="box-content-search">
+
                                     </ul>
                                 </div>
                             </form>
@@ -726,7 +729,7 @@
         $(function() {
             $("#search-input").on("keyup", function() {
                 var searchQuery = $(this).val();
-                if (searchQuery.length > 2) {
+                if (searchQuery.lenght > 2) {
                     $.ajax({
                         type: "GET",
                         url: "{{ route('home.search') }}",
@@ -746,7 +749,7 @@
                                     <ul>
                                         <li class="product-item gap14 mb-10">
                                             <div class="image no-bg">
-                                                <img src="{{ asset('uploads/products/thumbnails') }}/${item.image}" alt="${item.name}">
+                                                <img src="{{ asset('uploads/products/tumbnails') }}/${item.image}" alt="${item.name}">
                                             </div>
                                             <div class="flex items-center justify-between gap20 flex-grow">
                                                 <div class="name">

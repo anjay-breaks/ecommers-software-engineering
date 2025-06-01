@@ -560,5 +560,11 @@ class AdminController extends Controller
         $contact->delete();
         return redirect()->route('admin.contacts')->with("status","Contact delete success mas");
     }
+    public function search(Request $request)
+    {
+        $query =$request->input('query');
+        $result =Product::where('name','LIKE',"%{$query}%")->get()->take(8);
+        return response()->json($result);
+    }
 
 }
