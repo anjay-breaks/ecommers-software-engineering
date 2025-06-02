@@ -7,6 +7,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthAdmin;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -97,4 +98,9 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
 
 
     Route::get('/admin/search',[AdminController::class,'search'])->name('admin.search');
+
+
+    Route::get('/admin/profile',[AdminController::class,'profil'])->name('admin.profile');
+    Route::post('/profile/edit', [AdminController::class, 'edit'])->name('profile.edit');
+
 });

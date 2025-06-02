@@ -17,6 +17,8 @@ use App\Models\Category;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -563,8 +565,38 @@ class AdminController extends Controller
     public function search(Request $request)
     {
         $query =$request->input('query');
-        $result =Product::where('name','LIKE',"%{$query}%")->get()->take(8);
-        return response()->json($result);
+        $results =Product::where('name','LIKE',"%{$query}%")->get()->take(8);
+        return response()->json($results);
+    }
+
+    public function profil()
+    {
+        return view('admin.account');
+    }
+
+    public function edit(Request $request)
+    {
+
+       $request->validate([
+        'name' => 'string|max:40',
+        'mobile' => 'digits:12',
+        'email' => 'email',
+        'password' => 'string|min:6'
+        ]);
+        $user = Auth::user();
+
+    // Update field
+    $user->name = $request->name;
+    $user->mobile = $request->mobile;
+    $user->email = $request->email;
+
+    // Update password hanya jika diisi
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
+    $user->save();
+    return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
     }
 
 }

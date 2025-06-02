@@ -84,6 +84,7 @@
                 if(file){
                     $("#imgpreview img").attr('src',URL.createObjectURL(file));
                     $("#imgpreview img").show();
+                    $("#imgpreview").show();
                 }
 
             });

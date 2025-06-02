@@ -353,9 +353,9 @@
                         <li class="navigation__item">
                             <a href="{{ route('cart.index') }}" class="navigation__link">Cart</a>
                         </li>
-                        <li class="navigation__item">
+                        {{-- <li class="navigation__item">
                             <a href="about.html" class="navigation__link">About</a>
-                        </li>
+                        </li> --}}
                         <li class="navigation__item">
                             <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
                         </li>
@@ -443,9 +443,9 @@
                         <li class="navigation__item">
                             <a href="{{ route('cart.index') }}" class="navigation__link">Cart</a>
                         </li>
-                        <li class="navigation__item">
+                        {{-- <li class="navigation__item">
                             <a href="about.html" class="navigation__link">About</a>
-                        </li>
+                        </li> --}}
                         <li class="navigation__item">
                             <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
                         </li>
@@ -729,7 +729,7 @@
         $(function() {
             $("#search-input").on("keyup", function() {
                 var searchQuery = $(this).val();
-                if (searchQuery.lenght > 2) {
+                if (searchQuery.length > 2) {
                     $.ajax({
                         type: "GET",
                         url: "{{ route('home.search') }}",
@@ -749,7 +749,7 @@
                                     <ul>
                                         <li class="product-item gap14 mb-10">
                                             <div class="image no-bg">
-                                                <img src="{{ asset('uploads/products/tumbnails') }}/${item.image}" alt="${item.name}">
+                                                <img src="{{ asset('uploads/products/thumbnails') }}/${item.image}" alt="${item.name}">
                                             </div>
                                             <div class="flex items-center justify-between gap20 flex-grow">
                                                 <div class="name">

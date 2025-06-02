@@ -157,20 +157,20 @@
                                     </a>
                                 </li>
 
-                                <li class="menu-item">
+                                {{-- <li class="menu-item">
                                     <a href="users.html" class="">
                                         <div class="icon"><i class="icon-user"></i></div>
                                         <div class="text">User</div>
                                     </a>
-                                </li>
+                                </li> --}}
 
-                                <li class="menu-item">
+                                {{-- <li class="menu-item">
                                     <a href="settings.html" class="">
                                         <div class="icon"><i class="icon-settings"></i></div>
                                         <div class="text">Settings</div>
                                     </a>
-                                </li>
-                                <li class="menu-item">
+                                </li> --}}
+                                {{-- <li class="menu-item">
                                     <form method="POST" action="{{ route('logout') }}" id="logout-form">
                                         @csrf
                                         <a href="{{ route('logout') }}" class=""
@@ -179,7 +179,7 @@
                                             <div class="text">Logout</div>
                                         </a>
                                     </form>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -296,18 +296,21 @@
                                             id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="header-user wg-user">
                                                 <span class="image">
-                                                    <img src="images/avatar/user-1.png" alt="">
+                                                    <img src="{{ asset('images/avatar/user-1.png') }}"
+                                                        alt="">
                                                 </span>
                                                 <span class="flex flex-column">
-                                                    <span class="body-title mb-2">Kristin Watson</span>
-                                                    <span class="text-tiny">Admin</span>
+                                                    <span class="body-title mb-2">{{ Auth::user()->name }}</span>
+                                                    <span class="text-tiny">
+                                                        {{ Auth::user()->utype === 'ADM' ? 'Admin' : 'User' }}
+                                                    </span>
                                                 </span>
                                             </span>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end has-content"
                                             aria-labelledby="dropdownMenuButton3">
                                             <li>
-                                                <a href="#" class="user-item">
+                                                <a href="{{ route('admin.profile') }}" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-user"></i>
                                                     </div>
@@ -315,32 +318,13 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-mail"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Inbox</div>
-                                                    <div class="number">27</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-file-text"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Taskboard</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-headphones"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Support</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="login.html" class="user-item">
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
+
+                                                <a href="{{ route('logout') }}" class="user-item"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     <div class="icon">
                                                         <i class="icon-log-out"></i>
                                                     </div>
@@ -350,6 +334,7 @@
                                         </ul>
                                     </div>
                                 </div>
+
 
                             </div>
                         </div>
@@ -380,7 +365,7 @@
         $(function() {
             $("#search-input").on("keyup", function() {
                 var searchQuery = $(this).val();
-                if (searchQuery.lenght > 2) {
+                if (searchQuery.length > 2) {
                     $.ajax({
                         type: "GET",
                         url: "{{ route('admin.search') }}",
@@ -400,7 +385,7 @@
                                     <ul>
                                         <li class="product-item gap14 mb-10">
                                             <div class="image no-bg">
-                                                <img src="{{ asset('uploads/products/tumbnails') }}/${item.image}" alt="${item.name}">
+                                                <img src="{{ asset('uploads/products/thumbnails') }}/${item.image}" alt="${item.name}">
                                             </div>
                                             <div class="flex items-center justify-between gap20 flex-grow">
                                                 <div class="name">
