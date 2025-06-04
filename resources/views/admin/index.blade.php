@@ -1,197 +1,126 @@
 @extends('layouts.admin')
+
 @section('content')
+{{-- <style>
+    /* Pastikan style ini tidak bertabrakan dengan style global di layouts.admin Anda */
+    /* Anda mungkin perlu menyesuaikan selector jika ada konflik */
+    .admin-welcome-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 150px); /* Sesuaikan pengurangan tinggi header/footer jika ada */
+        padding: 20px;
+        background-color: #f4f6f9; /* Warna latar belakang admin yang umum */
+        text-align: center;
+    }
+
+    .welcome-card {
+        background-color: #ffffff;
+        padding: 40px 50px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        width: 100%;
+        animation: fadeInScale 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .welcome-card .icon {
+        font-size: 48px; /* Ukuran ikon */
+        color: #007bff; /* Warna primer, sesuaikan dengan tema admin Anda */
+        margin-bottom: 20px;
+        /* Anda bisa menggunakan pustaka ikon seperti Font Awesome atau SVG di sini */
+        /* Contoh dengan teks (bisa diganti dengan tag <i> atau <img>) */
+        display: inline-block; /* agar margin-bottom bekerja */
+    }
+
+    .welcome-card h1 {
+        font-size: 2.5rem; /* Ukuran font lebih besar untuk judul */
+        color: #343a40; /* Warna teks gelap */
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .welcome-card p {
+        font-size: 1.1rem;
+        color: #6c757d; /* Warna teks abu-abu */
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .welcome-actions a {
+        display: inline-block;
+        padding: 12px 25px;
+        margin: 0 10px;
+        border-radius: 25px; /* Tombol lebih bulat */
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary-custom {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+
+    .btn-primary-custom:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn-secondary-custom {
+        background-color: transparent;
+        color: #007bff;
+        border: 1px solid #007bff;
+    }
+
+    .btn-secondary-custom:hover {
+        background-color: #007bff;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    }
+
+    /* Untuk ikon, jika Anda menggunakan Font Awesome, pastikan sudah terpasang */
+    /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'); */
+
+</style> --}}
+
+{{-- <div class="admin-welcome-page">
+    <div class="welcome-card">
+        <div class="icon">🎉</div>
+
+        <h1>Selamat Datang Kembali, Admin!</h1>
+        <p>
+            Ini adalah pusat kendali Anda. Dari sini, Anda dapat mengelola pengguna,
+            melihat laporan, mengatur konten, dan menjalankan berbagai tugas administratif lainnya.
+            Semoga hari Anda produktif!
+        </p>
+        <div class="welcome-actions">
+            <a href="#" class="btn-primary-custom">Ke Dashboard Utama</a>
+            <a href="#" class="btn-secondary-custom">Lihat Notifikasi</a>
+        </div>
+    </div>
+</div> --}}
+
     <div class="main-content-inner">
 
         <div class="main-content-wrap">
-            <div class="tf-section-2 mb-30">
-                <div class="flex gap20 flex-wrap-mobile">
-                    <div class="w-half">
 
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-shopping-bag"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Total Orders</div>
-                                        <h4>{{ $dashboardDatas[0]->TotalOrdered }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-dollar-sign"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Total Amount</div>
-                                         <h4>{{ $dashboardDatas[0]->TotalAmount }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-shopping-bag"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Pending Orders</div>
-                                        <h4>{{ $dashboardDatas[0]->TotalOrderedAmount }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-dollar-sign"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Pending Orders Amount</div>
-                                         <h4>{{ $dashboardDatas[0]->Total }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="w-half">
-
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-shopping-bag"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Delivered Orders</div>
-                                        <h4>{{ $dashboardDatas[0]->TotalDelivered }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-dollar-sign"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Delivered Orders Amount</div>
-                                         <h4>{{ $dashboardDatas[0]->TotalDeliveredAmount }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default mb-20">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-shopping-bag"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Canceled Orders</div>
-                                         <h4>{{ $dashboardDatas[0]->TotalCanceled }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="wg-chart-default">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap14">
-                                    <div class="image ic-bg">
-                                        <i class="icon-dollar-sign"></i>
-                                    </div>
-                                    <div>
-                                        <div class="body-text mb-2">Canceled Orders Amount</div>
-                                       <h4>{{ $dashboardDatas[0]->TotalCanceledAmount }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="wg-box">
-                    <div class="flex items-center justify-between">
-                        <h5>Monthly Revenue</h5>
-
-                    </div>
-                    <div class="flex flex-wrap gap40">
-                        <div>
-                            <div class="mb-2">
-                                <div class="block-legend">
-                                    <div class="dot t1"></div>
-                                    <div class="text-tiny">Total</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap10">
-                                <h4>${{ $TotalAmount }}</h4>
-                                <div class="box-icon-trending up">
-                                    <i class="icon-trending-up"></i>
-                                    <div class="body-title number">0.56%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <div class="block-legend">
-                                    <div class="dot t2"></div>
-                                    <div class="text-tiny">Pending</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap10">
-                                <h4>${{ $TotalOrderedAmount }}</h4>
-                            </div>
-                        </div>
-                         <div>
-                            <div class="mb-2">
-                                <div class="block-legend">
-                                    <div class="dot t2"></div>
-                                    <div class="text-tiny">Delivered</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap10">
-                                <h4>${{ $TotalDeliveredAmount }}</h4>
-                            </div>
-                        </div>
-                         <div>
-                            <div class="mb-2">
-                                <div class="block-legend">
-                                    <div class="dot t2"></div>
-                                    <div class="text-tiny">Canceled</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap10">
-                                <h4>${{ $TotalCanceledAmount }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="line-chart-8"></div>
-                </div>
-
-            </div>
             <div class="tf-section mb-30">
 
                 <div class="wg-box">

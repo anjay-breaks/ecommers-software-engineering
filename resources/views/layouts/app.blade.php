@@ -500,9 +500,21 @@
                             </a>
                         </div>
                     @else
+                        @php
+                            switch (Auth::user()->utype) {
+                                case 'ADM':
+                                    $dashboardRoute = route('admin.index');
+                                    break;
+                                case 'CEO':
+                                    $dashboardRoute = route('ceo.index');
+                                    break;
+                                default:
+                                    $dashboardRoute = route('user.index');
+                            }
+                        @endphp
+
                         <div class="header-tools__item hover-container">
-                            <a href="{{ Auth::user()->utype === 'ADM' ? route('admin.index') : route('user.index') }}"
-                                class="header-tools__item ">
+                            <a href="{{ $dashboardRoute }}" class="header-tools__item">
                                 <span class="pr-6px">{{ Auth::user()->name }}</span>
                                 <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -510,6 +522,7 @@
                                 </svg>
                             </a>
                         </div>
+
                     @endguest
                     <a href="{{ route('wishlist.index') }}" class="header-tools__item  header-tools__cart">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"

@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/ceo', [AdminController::class, 'index'])->name('ceo.index');
     Route::get('/admin/brands', [AdminController::class, 'brands'])->name('admin.brands');
     Route::get('/admin/brand/add', [AdminController::class, 'add_brand'])->name('admin.brand.add');
     Route::post('/admin/brand/store', [AdminController::class, 'brand_store'])->name('admin.brand.store');
@@ -102,5 +103,8 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
 
     Route::get('/admin/profile',[AdminController::class,'profil'])->name('admin.profile');
     Route::post('/profile/edit', [AdminController::class, 'edit'])->name('profile.edit');
+
+    Route::get('/users', [AdminController::class, 'listUsers'])->name('users.index');
+    Route::post('/users/{id}/role', [AdminController::class, 'updateUserRole'])->name('users.updateRole');
 
 });

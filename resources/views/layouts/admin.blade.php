@@ -54,10 +54,10 @@
                         <div class="center-item">
                             <div class="center-heading">Main Home</div>
                             <ul class="menu-list">
-                                <li class="menu-item">
+                              <li class="menu-item">
                                     <a href="{{ route('admin.index') }}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Dashboard</div>
+                                        <div class="text">Admin Taa?</div>
                                     </a>
                                 </li>
                             </ul>
@@ -66,7 +66,9 @@
                             <ul class="menu-list">
                                 <li class="menu-item has-children">
                                     <a href="javascript:void(0);" class="menu-item-button">
-                                        <div class="icon"><i class="icon-shopping-cart"></i></div>
+                                        <div class="icon">
+                                            <i class="icon-shopping-cart"></i>
+                                        </div>
                                         <div class="text">Products</div>
                                     </a>
                                     <ul class="sub-menu">

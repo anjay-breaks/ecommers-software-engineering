@@ -18,8 +18,8 @@ class AuthAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check())
-        { 
-            if(Auth::user()->utype==='ADM')
+        {
+              if (in_array(Auth::user()->utype, ['ADM', 'CEO'])) 
             {
                 return $next($request);
             }else{
@@ -30,6 +30,6 @@ class AuthAdmin
         }else{
             return redirect()->route('login');
         }
-       
+
     }
 }

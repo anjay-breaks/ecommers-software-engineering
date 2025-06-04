@@ -222,7 +222,7 @@
                                 </div>
                                 <div>
                                     <p class="profile-info-label">Status Anggota</p>
-                                    <p class="profile-info-value"><span class="badge badge-green"> {{ Auth::user()->utype === 'ADM' ? 'Admin' : 'User' }}</span></p>
+                                    <p class="profile-info-value"><span class="badge badge-green"> {{ Auth::user()->utype === 'ADM' ? 'Admin' : (Auth::user()->utype === 'CEO' ? 'CEO' : 'User') }}</span></p>
                                 </div>
 
                             </div>

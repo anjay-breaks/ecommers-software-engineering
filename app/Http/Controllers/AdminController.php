@@ -22,46 +22,75 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function index(){
-        $orders = Order::orderBy('created_at','DESC')->get()->take(10);
-        $dashboardDatas = DB::select("Select sum(total) As TotalAmount,
-                                    sum(if(status='orderes',total,0)) As TotalOrderedAmount,
-                                    sum(if(status='delivered',total,0)) As TotalDeliveredAmount,
-                                    sum(if(status='canceled',total,0)) As TotalCanceledAmount,
-                                    count(*) As Total,
-                                    sum(if(status='orderes',1,0)) As TotalOrdered,
-                                    sum(if(status='delivered',1,0)) As TotalDelivered,
-                                    sum(if(status='canceled',1,0)) As TotalCanceled
-                                    From Orders
-                                    ");
+   public function index()
+{
+    $user = Auth::user();
 
+    // Ambil 10 order terakhir
+    $orders = Order::orderBy('created_at', 'DESC')->take(10)->get();
 
-        $monthlyDatas = DB::select("SELECT M.id As MonthNo, M.name As MonthName,
-                                IFNULL(D.TotalAmount,0) As TotalAmount,
-                                IFNULL(D.TotalOrderedAmount,0) As TotalOrderedAmount,
-                                IFNULL(D.TotalDeliveredAmount,0) As TotalDeliveredAmount,
-                                IFNULL(D.TotalCanceledAmount,0) As TotalCanceledAmount FROM month_names M
-                                LEFT JOIN (Select DATE_FORMAT(created_at,'%b') As MonthName,
-                                Month(created_at) As MonthNo,
-                                sum(total) As TotalAmount,
-                                sum(if(status='ordered',total,0)) As TotalOrderedAmount,
-                                sum(if(status='delivered',total,0)) As TotalDeliveredAmount,
-                                sum(if(status='canceled',total,0)) As TotalCanceledAmount
-                                From Orders WHERE YEAR(created_at)=YEAR(NOW()) GROUP BY YEAR(created_at), MONTH(created_at), DATE_FORMAT(created_at, '%b')
-                                Order By MONTH(created_at)) D On D.MonthNo=M.id");
+    // Data untuk ringkasan dashboard
+    $dashboardDatas = DB::select("
+        SELECT
+            SUM(total) AS TotalAmount,
+            SUM(IF(status='ordered', total, 0)) AS TotalOrderedAmount,
+            SUM(IF(status='delivered', total, 0)) AS TotalDeliveredAmount,
+            SUM(IF(status='canceled', total, 0)) AS TotalCanceledAmount,
+            COUNT(*) AS Total,
+            SUM(IF(status='ordered', 1, 0)) AS TotalOrdered,
+            SUM(IF(status='delivered', 1, 0)) AS TotalDelivered,
+            SUM(IF(status='canceled', 1, 0)) AS TotalCanceled
+        FROM orders
+    ");
 
-        $AmountM = implode(',',collect($monthlyDatas)->pluck('TotalAmount')->toArray());
-        $OrderedAmountM = implode(',',collect($monthlyDatas)->pluck('TotalOrderedAmount')->toArray());
-        $DeliveredAmountM = implode(',',collect($monthlyDatas)->pluck('TotalDeliveredAmount')->toArray());
-        $CanceledAmountM = implode(',',collect($monthlyDatas)->pluck('TotalCanceledAmount')->toArray());
+    $monthlyDatas = DB::select("
+        SELECT M.id AS MonthNo, M.name AS MonthName,
+            IFNULL(D.TotalAmount, 0) AS TotalAmount,
+            IFNULL(D.TotalOrderedAmount, 0) AS TotalOrderedAmount,
+            IFNULL(D.TotalDeliveredAmount, 0) AS TotalDeliveredAmount,
+            IFNULL(D.TotalCanceledAmount, 0) AS TotalCanceledAmount
+        FROM month_names M
+        LEFT JOIN (
+            SELECT DATE_FORMAT(created_at, '%b') AS MonthName,
+                MONTH(created_at) AS MonthNo,
+                SUM(total) AS TotalAmount,
+                SUM(IF(status='ordered', total, 0)) AS TotalOrderedAmount,
+                SUM(IF(status='delivered', total, 0)) AS TotalDeliveredAmount,
+                SUM(IF(status='canceled', total, 0)) AS TotalCanceledAmount
+            FROM orders
+            WHERE YEAR(created_at) = YEAR(NOW())
+            GROUP BY YEAR(created_at), MONTH(created_at), DATE_FORMAT(created_at, '%b')
+            ORDER BY MONTH(created_at)
+        ) D ON D.MonthNo = M.id
+    ");
 
-        $TotalAmount = collect($monthlyDatas)->sum('TotalAmount');
-        $TotalOrderedAmount = collect($monthlyDatas)->sum('TotalOrderedAmount');
-        $TotalDeliveredAmount = collect($monthlyDatas)->sum('TotalDeliveredAmount');
-        $TotalCanceledAmount = collect($monthlyDatas)->sum('TotalCanceledAmount');
+    $AmountM = implode(',', collect($monthlyDatas)->pluck('TotalAmount')->toArray());
+    $OrderedAmountM = implode(',', collect($monthlyDatas)->pluck('TotalOrderedAmount')->toArray());
+    $DeliveredAmountM = implode(',', collect($monthlyDatas)->pluck('TotalDeliveredAmount')->toArray());
+    $CanceledAmountM = implode(',', collect($monthlyDatas)->pluck('TotalCanceledAmount')->toArray());
 
-        return view('admin.index',compact('orders','dashboardDatas','AmountM','OrderedAmountM','DeliveredAmountM','CanceledAmountM','TotalAmount','TotalOrderedAmount','TotalDeliveredAmount','TotalCanceledAmount'));
+    $TotalAmount = collect($monthlyDatas)->sum('TotalAmount');
+    $TotalOrderedAmount = collect($monthlyDatas)->sum('TotalOrderedAmount');
+    $TotalDeliveredAmount = collect($monthlyDatas)->sum('TotalDeliveredAmount');
+    $TotalCanceledAmount = collect($monthlyDatas)->sum('TotalCanceledAmount');
+
+    // Cek apakah CEO atau bukan
+    if ($user->utype === 'CEO') {
+        return view('ceo.index', compact(
+            'orders', 'dashboardDatas',
+            'AmountM', 'OrderedAmountM', 'DeliveredAmountM', 'CanceledAmountM',
+            'TotalAmount', 'TotalOrderedAmount', 'TotalDeliveredAmount', 'TotalCanceledAmount'
+        ));
+    } elseif($user->utype === 'ADM') {
+        return view('admin.index', compact(
+            'orders', 'dashboardDatas',
+            'AmountM', 'OrderedAmountM', 'DeliveredAmountM', 'CanceledAmountM',
+            'TotalAmount', 'TotalOrderedAmount', 'TotalDeliveredAmount', 'TotalCanceledAmount'
+        ));
     }
+}
+
+
     public function brands(){
         $brands = Brand::orderBy('id','DESC')->paginate(10);
         return view('admin.brands',compact('brands'));
@@ -598,5 +627,28 @@ class AdminController extends Controller
     $user->save();
     return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
     }
+
+    public function listUsers()
+    {
+    $users = User::all();
+    return view('ceo.ubah-role', compact('users'));
+    }
+    public function updateUserRole(Request $request, $id)
+    {
+    if (Auth::user()->utype !== 'CEO') {
+        abort(403, 'Hanya CEO yang dapat mengubah role.');
+    }
+
+    $request->validate([
+        'role' => 'required|in:ADM,CEO,USR',
+    ]);
+
+    $user = User::findOrFail($id);
+    $user->utype = $request->role;
+    $user->save();
+
+    return redirect()->back()->with('success', 'Role berhasil diperbarui.');
+    }
+
 
 }
