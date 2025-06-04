@@ -44,6 +44,9 @@ Route::post('/contact/store',[HomeController::class,'contact_store'])->name('hom
 
 Route::get('/search',[HomeController::class,'search'])->name('home.search');
 
+Route::post('/profile/upload-photo', [UserController::class, 'uploadPhoto'])->name('profile.upload');
+
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
     Route::get('/account-orders', [UserController::class, 'orders'])->name('user.orders');

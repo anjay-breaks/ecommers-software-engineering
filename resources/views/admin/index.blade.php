@@ -193,7 +193,7 @@
 
     </div>
 @endsection
-
+{{--
 @push('scripts')
 <script>
         (function ($) {
@@ -293,4 +293,4 @@
             jQuery(window).on("resize", function () { });
         })(jQuery);
     </script>
-@endpush
+@endpush --}}

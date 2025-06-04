@@ -54,7 +54,7 @@
                         <div class="center-item">
                             <div class="center-heading">Main Home</div>
                             <ul class="menu-list">
-                              <li class="menu-item">
+                                <li class="menu-item">
                                     <a href="{{ route('admin.index') }}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
                                         <div class="text">Admin Taa?</div>
@@ -298,9 +298,12 @@
                                             id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="header-user wg-user">
                                                 <span class="image">
-                                                    <img src="{{ asset('images/avatar/user-1.png') }}"
-                                                        alt="">
+                                                    <img src="{{ auth()->user()->profilePhoto
+                                                        ? Storage::url(auth()->user()->profilePhoto->photo_path)
+                                                        : asset('images/avatar/user-1.png') }}"
+                                                        alt="Foto Profil {{ auth()->user()->name }}">
                                                 </span>
+
                                                 <span class="flex flex-column">
                                                     <span class="body-title mb-2">{{ Auth::user()->name }}</span>
                                                     <span class="text-tiny">

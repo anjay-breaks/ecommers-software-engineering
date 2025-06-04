@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function profilePhoto()
+    {
+        return $this->hasOne(UserPhoto::class)->where('is_profile', true);
+    }
+     public function photos()
+    {
+        return $this->hasMany(UserPhoto::class);
+    }
+
+
 }

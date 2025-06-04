@@ -603,16 +603,17 @@ class AdminController extends Controller
         return view('admin.account');
     }
 
-    public function edit(Request $request)
-    {
-
-       $request->validate([
+public function edit(Request $request)
+{
+    $request->validate([
         'name' => 'string|max:40',
         'mobile' => 'digits:12',
         'email' => 'email',
-        'password' => 'string|min:6'
-        ]);
-        $user = Auth::user();
+        'password' => 'nullable|string|min:6',
+        'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    $user = Auth::user();
 
     // Update field
     $user->name = $request->name;
@@ -625,8 +626,26 @@ class AdminController extends Controller
     }
 
     $user->save();
-    return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+
+    // Upload dan simpan foto jika ada
+    if ($request->hasFile('photo')) {
+        $file = $request->file('photo');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/user_photos', $filename);
+
+        // Nonaktifkan foto profil sebelumnya
+        $user->photos()->update(['is_profile' => false]);
+
+        // Simpan foto baru sebagai profil
+        $user->photos()->create([
+            'photo_path' => $path,
+            'is_profile' => true,
+        ]);
     }
+
+    return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+}
+
 
     public function listUsers()
     {

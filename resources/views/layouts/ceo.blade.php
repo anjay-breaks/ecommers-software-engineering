@@ -67,7 +67,8 @@
                             <ul class="menu-list">
                                 <li class="menu-item">
                                     {{-- Pastikan route 'users.index' aktif jika halaman saat ini adalah users.index --}}
-                                    <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.index') ? 'active' : '' }}">
+                                    <a href="{{ route('users.index') }}"
+                                        class="{{ request()->routeIs('users.index') ? 'active' : '' }}">
                                         <div class="icon"><i class="icon-user"></i></div>
                                         <div class="text">User</div>
                                     </a>
@@ -129,7 +130,8 @@
                                                     <div class="image"><i class="icon-noti-1"></i></div>
                                                     <div>
                                                         <div class="body-title-2">Discount available</div>
-                                                        <div class="text-tiny">Morbi sapien massa, ultricies at rhoncus at, ullamcorper nec diam</div>
+                                                        <div class="text-tiny">Morbi sapien massa, ultricies at rhoncus
+                                                            at, ullamcorper nec diam</div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -145,8 +147,10 @@
                                             id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="header-user wg-user">
                                                 <span class="image">
-                                                    {{-- Ganti dengan path avatar pengguna jika ada, atau default --}}
-                                                    <img src="{{ Auth::user()->avatar ? asset('path/to/avatars/' . Auth::user()->avatar) : asset('images/avatar/user-1.png') }}" alt="User Avatar">
+                                                    <img src="{{ auth()->user()->profilePhoto
+                                                        ? Storage::url(auth()->user()->profilePhoto->photo_path)
+                                                        : asset('images/avatar/user-1.png') }}"
+                                                        alt="Foto Profil {{ auth()->user()->name }}">
                                                 </span>
                                                 <span class="flex flex-column">
                                                     <span class="body-title mb-2">{{ Auth::user()->name }}</span>
@@ -159,13 +163,15 @@
                                         <ul class="dropdown-menu dropdown-menu-end has-content"
                                             aria-labelledby="dropdownMenuButton3">
                                             <li>
-                                                <a href="{{ route('admin.profile') }}" class="user-item"> {{-- Sesuaikan route jika perlu --}}
+                                                <a href="{{ route('admin.profile') }}" class="user-item">
+                                                    {{-- Sesuaikan route jika perlu --}}
                                                     <div class="icon"><i class="icon-user"></i></div>
                                                     <div class="body-title-2">Account</div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
                                                     @csrf
                                                 </form>
                                                 <a href="{{ route('logout') }}" class="user-item"
@@ -185,7 +191,8 @@
                         @yield('content') {{-- Di sinilah konten dari views/users/index.blade.php akan ditampilkan --}}
 
                         <div class="bottom-page">
-                            <div class="body-text">Copyright © {{ date('Y') }} SurfsideMedia</div> {{-- Menggunakan date('Y') untuk tahun dinamis --}}
+                            <div class="body-text">Copyright © {{ date('Y') }} SurfsideMedia</div>
+                            {{-- Menggunakan date('Y') untuk tahun dinamis --}}
                         </div>
                     </div>
                 </div>
@@ -216,11 +223,16 @@
                         dataType: 'json',
                         success: function(data) {
                             $("#box-content-search").html(''); // Kosongkan hasil sebelumnya
-                            if(data && data.length > 0) {
+                            if (data && data.length > 0) {
                                 $.each(data, function(index, item) {
                                     // Pastikan 'item.id', 'item.image', 'item.name' ada di response JSON
-                                    var productImageUrl = "{{ asset('uploads/products/tumbnails') }}/" + (item.image || 'default.png'); // Fallback jika image null
-                                    var productEditUrl = "{{ route('admin.product.edit', ['id' => ':id']) }}".replace(':id', item.id);
+                                    var productImageUrl =
+                                        "{{ asset('uploads/products/tumbnails') }}/" +
+                                        (item.image ||
+                                        'default.png'); // Fallback jika image null
+                                    var productEditUrl =
+                                        "{{ route('admin.product.edit', ['id' => ':id']) }}"
+                                        .replace(':id', item.id);
 
                                     $("#box-content-search").append(`
                                         <li>
@@ -241,16 +253,20 @@
                                     `);
                                 });
                             } else {
-                                $("#box-content-search").append('<li><div class="body-text p-3">No products found.</div></li>');
+                                $("#box-content-search").append(
+                                    '<li><div class="body-text p-3">No products found.</div></li>'
+                                    );
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.error("Search AJAX error:", textStatus, errorThrown);
-                            $("#box-content-search").html('<li><div class="body-text p-3 text-danger">Error during search.</div></li>');
+                            $("#box-content-search").html(
+                                '<li><div class="body-text p-3 text-danger">Error during search.</div></li>'
+                                );
                         }
                     });
                 } else {
-                     $("#box-content-search").html(''); // Kosongkan jika query pendek
+                    $("#box-content-search").html(''); // Kosongkan jika query pendek
                 }
             });
         });
@@ -258,4 +274,5 @@
 
     @stack('scripts') {{-- Di sinilah script spesifik halaman akan dimasukkan --}}
 </body>
+
 </html>

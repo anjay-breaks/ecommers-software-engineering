@@ -109,7 +109,7 @@ class CartController extends Controller
         if(!$address){
             $request->validate([
                 'name'=>'required|max:100',
-                'phone'=>'required|numeric|digits:10',
+                'phone'=>'required|numeric|digits:12',
                 'zip'=>'required|numeric|digits:6',
                 'state'=>'required',
                 'city'=>'required',
@@ -216,5 +216,5 @@ class CartController extends Controller
         }
         return redirect()->route('cart.index');
     }
-    
+
 }
